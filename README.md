@@ -138,7 +138,7 @@ TalkTide supports 30+ themes powered by DaisyUI. You can switch between themes i
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to open an issue or submit a pull request. Please follow the [Code of Conduct](https://github.com/your-username/talktide/blob/main/CODE_OF_CONDUCT.md).
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ---
 
