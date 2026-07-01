@@ -48,8 +48,8 @@ Welcome to **TalkTide**, a modern real-time chat application built with the MERN
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/talktide.git
-   cd talktide
+   git clone https://github.com/your-username/web-chat.git
+   cd webchat
    ```
 
 2. **Install dependencies**:
