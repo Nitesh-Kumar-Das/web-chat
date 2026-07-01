@@ -11,6 +11,8 @@ const MessageInput = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+
     if (!file.type.startsWith("image/")) {
       toast.error("Please select an image file");
       return;
@@ -33,7 +35,6 @@ const MessageInput = () => {
     if (!text.trim() && !imagePreview) return;
 
     try {
-      console.log("Sending message:", { text, image: imagePreview }); // Debugging log
       await sendMessage({
         text: text.trim(),
         image: imagePreview, // Base64 image

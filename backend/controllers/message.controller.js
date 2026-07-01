@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 
@@ -19,6 +20,11 @@ export const getUsersForSidebar = async (req, res) => {
 export const getMessages = async (req, res) => {
   try {
     const { id: userToChatId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userToChatId)) {
+      return res.status(400).json({ error: "Invalid user ID" });
+    }
+
     const myId = req.user._id;
 
     const messages = await Message.find({
@@ -41,11 +47,19 @@ export const sendMessage = async (req, res) => {
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
 
+    if (!mongoose.Types.ObjectId.isValid(receiverId)) {
+      return res.status(400).json({ error: "Invalid receiver ID" });
+    }
+
+    if (!text?.trim() && !image) {
+      return res.status(400).json({ error: "Message must contain text or an image" });
+    }
+
     let imageUrl;
     if (image) {
       // Upload base64 image to Cloudinary
       const uploadResponse = await cloudinary.uploader.upload(image, {
-        folder: "chat_images", // Optional: Organize images in a folder
+        folder: "chat_images",
       });
       imageUrl = uploadResponse.secure_url;
     }
@@ -53,7 +67,7 @@ export const sendMessage = async (req, res) => {
     const newMessage = new Message({
       senderId,
       receiverId,
-      text,
+      text: text?.trim(),
       image: imageUrl,
     });
 
